@@ -51,8 +51,8 @@ app.post("/authenticate", async (req, res) => {
 
 app.get("/authenticated", (req, res) => {
   res.send(`
-    <h2>Successfully Authenticated</h2>
     ${navbar}
+    <h2>Successfully Authenticated</h2>
   `);
 });
 
@@ -62,6 +62,7 @@ app.get("/home", (req, res) => {
 
 app.get("/create-customer", (req, res) => {
   res.send(`
+    ${navbar}
     <form action="/customers" method="post" style="max-width: 400px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
       <label for="firstName" style="font-weight: bold; display: block; margin-bottom: 5px;">First Name:</label>
       <input type="text" id="firstName" name="first_name" required style="width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box;">
@@ -129,20 +130,20 @@ app.post("/customers", async (req, res) => {
 
     if (customerResponse.status === 201) {
       res.status(201).send(`
-        Successfully Created
         ${navbar}
+        Successfully Created
       `);
     } else {
       res.status(400).send(`
-        First Name or Last Name is missing
         ${navbar}
+        First Name or Last Name is missing
       `);
     }
   } catch (error) {
     console.error(error);
     res.status(500).send(`
-      Internal Server Error
       ${navbar}
+      Internal Server Error
     `);
   }
 });
@@ -162,15 +163,15 @@ app.get("/view-customers", async (req, res) => {
     );
 
     const customerList = customerListResponse.data;
-    
+
     if (customerList.length === 0) {
       res.send("<h2>No customers found</h2>");
       return;
     }
 
     const keys = Object.keys(customerList[0]);
-
-    let tableHtml = "<h2>Customer List</h2><table border='1'><tr>";
+    let tableHtml = navbar;
+    tableHtml += "<h2>Customer List</h2><table border='1'><tr>";
     keys.forEach((key) => {
       tableHtml += `<th>${key}</th>`;
     });
@@ -185,7 +186,7 @@ app.get("/view-customers", async (req, res) => {
     });
 
     tableHtml += "</table>";
-    
+
     res.send(tableHtml);
   } catch (error) {
     console.error(error);
@@ -195,6 +196,7 @@ app.get("/view-customers", async (req, res) => {
 
 app.get("/delete-customer", (req, res) => {
   res.send(`
+    ${navbar}
     <form action="/deleted-customer" method="post" style="max-width: 300px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
       <label for="uuid" style="font-weight: bold; display: block; margin-bottom: 5px;">Customer UUID:</label>
       <input type="text" id="uuid" name="uuid" required style="width: 100%; padding: 8px; margin-bottom: 15px; box-sizing: border-box;">
@@ -232,31 +234,32 @@ app.post("/deleted-customer", async (req, res) => {
 
     if (deleteResponse.status === 200) {
       res.status(200).send(`
-        Successfully Deleted
         ${navbar}
+        Successfully Deleted
       `);
     } else if (deleteResponse.status === 400) {
       res.status(400).send(`
-        UUID not found
         ${navbar}
+        UUID not found
       `);
     } else {
       res.status(500).send(`
-        Error. Not Deleted
         ${navbar}
+        Error. Not Deleted
       `);
     }
   } catch (error) {
     console.error(error);
     res.status(500).send(`
-      Internal Server Error
       ${navbar}
+      Internal Server Error
     `);
   }
 });
 
 app.get("/update-customer", (req, res) => {
   res.send(`
+    ${navbar}
     <form action="/update-customer" method="post" style="max-width: 400px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; border-radius: 5px;">
       <label for="uuid" style="font-weight: bold; display: block; margin-bottom: 5px;">Customer UUID:</label>
       <input type="text" id="uuid" name="uuid" required style="width: 100%; padding: 8px; margin-bottom: 10px; box-sizing: border-box;">
@@ -329,25 +332,25 @@ app.post("/update-customer", async (req, res) => {
 
     if (updateResponse.status === 200) {
       res.status(200).send(`
-        Successfully Updated
         ${navbar}
+        Successfully Updated
       `);
     } else if (updateResponse.status === 400) {
       res.status(400).send(`
-        Body is Empty
         ${navbar}
+        Body is Empty
       `);
     } else if (updateResponse.status === 500) {
       res.status(500).send(`
-        UUID not found
         ${navbar}
+        UUID not found
       `);
     }
   } catch (error) {
     console.error(error);
     res.status(500).send(`
-      Internal Server Error
       ${navbar}
+      Internal Server Error
     `);
   }
 });
