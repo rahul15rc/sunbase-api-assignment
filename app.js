@@ -34,7 +34,7 @@ app.post("/authenticate", async (req, res) => {
   try {
     const { login, password } = req.body;
     const response = await axios.post(
-      "https://qa2.sunbasedata.com/sunbase/portal/api/assignment_auth.jsp",
+      "https://qa.sunbasedata.com/sunbase/portal/api/assignment_auth.jsp",
       {
         login_id: login,
         password: password,
@@ -107,7 +107,7 @@ app.post("/customers", async (req, res) => {
     } = req.body;
 
     const customerResponse = await axios.post(
-      "https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp",
+      "https://qa.sunbasedata.com/sunbase/portal/api/assignment.jsp",
       {
         first_name: first_name,
         last_name: last_name,
@@ -151,7 +151,7 @@ app.post("/customers", async (req, res) => {
 app.get("/view-customers", async (req, res) => {
   try {
     const customerListResponse = await axios.get(
-      "https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp",
+      "https://qa.sunbasedata.com/sunbase/portal/api/assignment.jsp",
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -209,18 +209,8 @@ app.post("/deleted-customer", async (req, res) => {
   try {
     const { uuid } = req.body;
     const deleteResponse = await axios.post(
-      "https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp",
+      "https://qa.sunbasedata.com/sunbase/portal/api/assignment.jsp",
       null,
-      {
-        first_name: first_name,
-        last_name: last_name,
-        street: street,
-        address: address,
-        city: city,
-        state: state,
-        email: email,
-        phone: phone,
-      },
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -308,7 +298,7 @@ app.post("/update-customer", async (req, res) => {
     } = req.body;
 
     const updateResponse = await axios.post(
-      "https://qa2.sunbasedata.com/sunbase/portal/api/assignment.jsp",
+      "https://qa.sunbasedata.com/sunbase/portal/api/assignment.jsp",
       {
         first_name: first_name,
         last_name: last_name,
